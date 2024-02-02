@@ -84,7 +84,15 @@ kill $bootstrap
 cd ../12-profile
 git submodule update --init --recursive
 make
+chmod +x profile
 ./profile &
 profile=$!
 sleep 3
 kill $profile
+cd ../13-tcpconnlat
+make
+chmod +x tcpconnlat
+./tcpconnlat &
+tcpconnlat=$!
+sleep 3
+kill $tcpconnlat
