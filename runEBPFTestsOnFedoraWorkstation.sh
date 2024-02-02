@@ -109,3 +109,10 @@ chmod +x javagc
 javagc=$!
 sleep 1
 kill $javagc
+cd ../16-memleak
+make
+chmod +x memleak
+./memleak &
+memleak=$!
+sleep 4
+kill $memleak
