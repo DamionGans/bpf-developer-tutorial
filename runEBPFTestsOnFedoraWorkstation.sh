@@ -135,3 +135,16 @@ ecli run package.json &
 tc=$!
 sleep 2
 kill $tc
+cd ../21-xdp
+ecc xdp.bpf.c
+ecli run package.json &
+xdp=$!
+sleep 2
+kill $xdp
+cd ../23-http
+make
+chmod +x sockfilter
+./sockfilter &
+sockfilter=$!
+sleep 3
+kill $sockfilter
