@@ -102,3 +102,10 @@ ecli run package.json &
 tcpstates=$!
 sleep 3
 kill $tcpstates
+cd ../15-javagc
+make
+chmod +x javagc
+./javagc -p 12345 &
+javagc=$!
+sleep 1
+kill $javagc
