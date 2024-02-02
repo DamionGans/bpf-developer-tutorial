@@ -53,7 +53,7 @@ cd ../7-execsnoop
 ecc execsnoop.bpf.c execsnoop.h
 ecli run package.json &
 execsnoop=$!
-sleep 1
+sleep 5
 kill $execsnoop
 cd ../8-exitsnoop
 ecc exitsnoop.bpf.c exitsnoop.h
