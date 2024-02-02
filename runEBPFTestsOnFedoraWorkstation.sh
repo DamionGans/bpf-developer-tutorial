@@ -60,7 +60,7 @@ ecc exitsnoop.bpf.c exitsnoop.h
 ecli run package.json &
 exitsnoop=$!
 sleep 1
-kill $execsnoop
+kill $exitsnoop
 cd ../9-runqlat
 ecc hardirqs.bpf.c
 ecli run package.json &
