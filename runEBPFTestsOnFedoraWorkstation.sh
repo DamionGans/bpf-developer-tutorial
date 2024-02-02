@@ -96,3 +96,9 @@ chmod +x tcpconnlat
 tcpconnlat=$!
 sleep 3
 kill $tcpconnlat
+cd ../14-tcpstates
+ecc tcprtt.bpf.c tcprtt.h
+ecli run package.json &
+tcpstates=$!
+sleep 3
+kill $tcpstates
