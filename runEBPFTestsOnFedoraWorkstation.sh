@@ -3,12 +3,12 @@ sudo dnf install -y clang elfutils-libelf elfutils-libelf-devel zlib-devel llvm
 if [ -f /usr/bin/ecli ]; then
   echo "ecli installed"
 else
-wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli && sudo mv ecli /usr/bin/.
+wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli && sudo mv ecli /usr/bin/
 fi
 if [ -f /usr/bin/ecc ]; then
 echo "ecli installed"
 else
-wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecc -O ecc && chmod +x ./ecc && sudo mv ecli /usr/bin/.
+wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecc -O ecc && chmod +x ./ecc && sudo mv ecli /usr/bin/
 fi
 
 cd src/1-helloworld/
