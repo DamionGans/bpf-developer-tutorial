@@ -3,7 +3,7 @@ if [ "$EUID" -ne 0 ]
 then echo "Please run as root (sudo)"
 exit
 fi
-sudo dnf install -y clang elfutils-libelf elfutils-libelf-devel zlib-devel llvm cargo
+sudo dnf install -y clang elfutils-libelf elfutils-libelf-devel zlib-devel llvm cargo strace
 if [ -f /usr/bin/ecli ]; then
   echo "ecli installed"
 else
@@ -148,3 +148,9 @@ chmod +x sockfilter
 sockfilter=$!
 sleep 3
 kill $sockfilter
+cd ../25-signal
+ecc signal.bpf.c signal.h
+ecli run package.json &
+signal=$!
+sleep 1 && strace /bin/whoami
+kill $signal
