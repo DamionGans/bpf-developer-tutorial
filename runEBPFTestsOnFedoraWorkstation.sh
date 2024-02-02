@@ -10,23 +10,22 @@ else
 wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli && sudo mv ecli /usr/bin/
 fi
 if [ -f /usr/bin/ecc ]; then
-echo "ecli installed"
+echo "ecc installed"
 else
 wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecc -O ecc && chmod +x ./ecc && sudo mv ecc /usr/bin/
 fi
-
 cd src/1-helloworld/
 ecc minimal.bpf.c
-sudo ecli run package.json &
-minimal = $!
+ecli run package.json &
+minimal=$!
 sleep 1
 kill $minimal
 cd ../2-kprobe-unlink/
 ecc kprobe-link.bpf.c
 ecli run package.json &
-kprobe_unlink=$!
-sleep 1 && touch test1 && rm test1 && touch test2 && rm test2
-kill $kprobe_unlink
+kprobe=$!
+sleep 1 && touch test1 && rm -rf test1 && touch test2 && rm -rf test2
+kill $kprobe
 cd ../3-fentry-unlink/
 ecc kprobe-link.bpf.c
 ecli run package.json &
