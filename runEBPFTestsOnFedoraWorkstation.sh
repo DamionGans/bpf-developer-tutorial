@@ -85,4 +85,5 @@ cd ../12-profile
 ecc profile.bpf.c
 ecli run package.json &
 profile=$!
+sleep 1
 kill $profile
