@@ -62,7 +62,7 @@ exitsnoop=$!
 sleep 1
 kill $exitsnoop
 cd ../9-runqlat
-ecc hardirqs.bpf.c
+ecc runqlat.bpf.c runqlat.h
 ecli run package.json &
 hardirqs=$!
 sleep 2
