@@ -27,11 +27,11 @@ kprobe=$!
 sleep 1 && touch test1 && rm -rf test1 && touch test2 && rm -rf test2
 kill $kprobe
 cd ../3-fentry-unlink/
-ecc kprobe-link.bpf.c
+ecc fentry-link.bpf.c
 ecli run package.json &
-fentry_unlink=$!
-sleep 1 && touch test1 && rm test1 && touch test2 && rm test2 
-kill $fentry_unlink
+fentry=$!
+sleep 1 && touch test1 && rm -rf test1 && touch test2 && rm -rf test2 
+kill $fentry
 cd ../4-opensnoop
 ecc opensnoop.bpf.c
 ecli run package.json &
