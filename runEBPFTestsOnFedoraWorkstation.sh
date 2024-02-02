@@ -3,7 +3,7 @@ if [ "$EUID" -ne 0 ]
 then echo "Please run as root (sudo)"
 exit
 fi
-sudo dnf install -y clang elfutils-libelf elfutils-libelf-devel zlib-devel llvm
+sudo dnf install -y clang elfutils-libelf elfutils-libelf-devel zlib-devel llvm cargo
 if [ -f /usr/bin/ecli ]; then
   echo "ecli installed"
 else
@@ -82,8 +82,9 @@ bootstrap=$!
 sleep 2
 kill $bootstrap
 cd ../12-profile
-ecc profile.bpf.c
-ecli run package.json &
+git submodule update --init --recursive
+make
+./profile &
 profile=$!
-sleep 1
+sleep 3
 kill $profile
