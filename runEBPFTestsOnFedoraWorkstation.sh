@@ -123,3 +123,9 @@ chmod +x biopattern
 biopattern=$!
 sleep 4
 kill $biopattern
+cd ../19-lsm-connect
+ecc lsm-connect.bpf.c
+ecli run package.json &
+lsmconnect=$!
+sleep 1 ; ping 1.1.1.1 -c 4
+kill $lsmconnect
