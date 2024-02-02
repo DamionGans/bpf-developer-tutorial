@@ -1,4 +1,8 @@
 #! /bin/bash
+if [ "$EUID" -ne 0 ]
+then echo "Please run as root (sudo)"
+exit
+fi
 sudo dnf install -y clang elfutils-libelf elfutils-libelf-devel zlib-devel llvm
 if [ -f /usr/bin/ecli ]; then
   echo "ecli installed"
@@ -14,41 +18,71 @@ fi
 cd src/1-helloworld/
 ecc minimal.bpf.c
 sudo ecli run package.json &
-$minmal = $!
+minimal = $!
 sleep 1
 kill $minimal
 cd ../2-kprobe-unlink/
-ecc kprobe-unlink.bpf.c
-sudo ecli run package.json &
+ecc kprobe-link.bpf.c
+ecli run package.json &
 kprobe_unlink=$!
 sleep 1 && touch test1 && rm test1 && touch test2 && rm test2
 kill $kprobe_unlink
 cd ../3-fentry-unlink/
-ecc fentry-unlink.bpf.c
-sudo ecli run package.json &
+ecc kprobe-link.bpf.c
+ecli run package.json &
 fentry_unlink=$!
 sleep 1 && touch test1 && rm test1 && touch test2 && rm test2 
 kill $fentry_unlink
 cd ../4-opensnoop
 ecc opensnoop.bpf.c
-sudo ecli run package.json &
-$opensnoop=$!
+ecli run package.json &
+opensnoop=$!
 sleep 1
 kill $opensnoop
 cd ../5-uprobe-bashreadline/
 ecc bashreadline.bpf.c
-sudo ecli run package.json &
-$bashreadline=$!
+ecli run package.json &
+bashreadline=$!
 kill $!
 cd ../6-sigsnoop/
 ecc sigsnoop.bpf.c
-sudo ecli run package.json &
-$sigsnoop=$!
+ecli run package.json &
+sigsnoop=$!
 sleep 1
 kill $sigsnoop
 cd ../7-execsnoop
 ecc execsnoop.bpf.c execsnoop.h
-sudo ecli run package.json &
-$execsnoop=$!
+ecli run package.json &
+execsnoop=$!
 sleep 1
 kill $execsnoop
+cd ../8-exitsnoop
+ecc exitsnoop.bpf.c exitsnoop.h
+ecli run package.json &
+exitsnoop=$!
+sleep 1
+kill $execsnoop
+cd ../9-runqlat
+ecc hardirqs.bpf.c
+ecli run package.json &
+hardirqs=$!
+sleep 2
+kill $hardirqs
+cd ../10-hardirqs
+ecc hardirqs.bpf.c
+ecli run package.json &
+hardirqs=$!
+sleep 2
+kill $hardirqs
+cd ../11-bootstrap
+make
+chmod +x bootstrap
+./bootstrap &
+bootstrap=$!
+sleep 2
+kill $bootstrap
+cd ../12-profile
+ecc profile.bpf.c
+ecli run package.json &
+profile=$!
+kill $profile
