@@ -116,3 +116,10 @@ chmod +x memleak
 memleak=$!
 sleep 4
 kill $memleak
+cd ../17-biopattern
+make
+chmod +x biopattern
+./biopattern &
+biopattern=$!
+sleep 4
+kill $biopattern
