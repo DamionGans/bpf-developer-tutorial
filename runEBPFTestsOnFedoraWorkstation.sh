@@ -74,6 +74,7 @@ hardirqs=$!
 sleep 2
 kill $hardirqs
 cd ../11-bootstrap
+git submodule update --init --recursive
 make
 chmod +x bootstrap
 ./bootstrap &
