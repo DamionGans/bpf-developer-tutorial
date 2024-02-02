@@ -129,3 +129,9 @@ ecli run package.json &
 lsmconnect=$!
 sleep 1 ; ping 1.1.1.1 -c 4
 kill $lsmconnect
+cd ../20-tc
+ecc tc.bpf.c
+ecli run package.json &
+tc=$!
+sleep 2
+kill $tc
