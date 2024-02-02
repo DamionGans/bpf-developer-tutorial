@@ -1,15 +1,15 @@
 #! /bin/bash
 sudo dnf install -y clang elfutils-libelf elfutils-libelf-devel zlib-devel llvm
-If [-f /usr/bin/ecli]; then
-echo "ecli installed"
-Else
+if [ -f /usr/bin/ecli ]; then
+  echo "ecli installed"
+else
 wget https://aka.pw/bpf-ecli -O ecli && chmod +x ./ecli && sudo mv ecli /usr/bin/.
-Fi
-If [-f /usr/bin/ecc]; then
+fi
+if [ -f /usr/bin/ecc ]; then
 echo "ecli installed"
-Else
+else
 wget https://github.com/eunomia-bpf/eunomia-bpf/releases/latest/download/ecc && chmod +x ./ecc && sudo mv ecli /usr/bin/.
-Fi
+fi
 
 cd src/1-helloworld/
 ecc minimal.bpf.c
